@@ -2,6 +2,8 @@
 print('---Welcome to the Investment Calculator---\n')
 
 start_amnt = float(input("Enter starting amount: \n > R"))
+total_interest_earned = 0
+total_deposits = 0
 
 print("\nWhich Intrest Rate: \n (1) Annoally [yearly]\n (2) Monthly")
 rate_type = int(input(">> "))
@@ -41,22 +43,30 @@ def monthly(amnt,rate):
 
 new_amnt = start_amnt
 count_month = 1
+interest_earned = 0
 
 while timeperiod > 0:
     if count_month == frequency:
         new_amnt += deposits
+        total_deposits += deposits
         count_month = 0
 
     match rate_type:
         case 1:
-            new_amnt += ann(new_amnt,rate)
+            interest_earned = ann(new_amnt,rate)
         case 2:
-            new_amnt += monthly(new_amnt,rate)
+            interest_earned = monthly(new_amnt,rate)
         case _:
             print("\n[!] Error: Rate Type incorrect input")
             exit()
 
+    new_amnt += interest_earned
+    total_interest_earned += interest_earned
+
     timeperiod -= 1
     count_month += 1
 
-print(f"\n= R{round(new_amnt,2)}")
+print(f"\n [Start Amount] R{start_amnt}")
+print(f" [Total Deposits] R{total_deposits}")
+print(f" [Interest Earned] R{round(total_interest_earned,2)}")
+print(f" [Final Amount] R{round(new_amnt,2)}")
