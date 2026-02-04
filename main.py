@@ -45,6 +45,7 @@ count_month = 1
 while timeperiod > 0:
     if count_month == frequency:
         new_amnt += deposits
+        count_month = 0
 
     match rate_type:
         case 1:
